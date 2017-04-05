@@ -1,13 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
+import ArticleList from './components/ArticleList';
 
-function App() {
-    return (
-        <h1>Hello World</h1>
-    );
-}
+
 
 render(
-    <App />,
+    <ArticleList />,
     document.getElementById('container')
 );
