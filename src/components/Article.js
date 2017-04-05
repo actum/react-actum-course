@@ -1,17 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 
 class Article extends Component {
-    constructor() {
-        super();
+    state = {
+        isOpen: false
+    };
 
-        this.state = {
-            isOpen: false
-        };
+    static propTypes = {
+        title: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired
+    };
 
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
+    handleClick = () => {
         this.setState({
             isOpen: !this.state.isOpen
         });
@@ -28,10 +27,5 @@ class Article extends Component {
         );
     }
 }
-
-Article.propTypes = {
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
-};
 
 export default Article;
