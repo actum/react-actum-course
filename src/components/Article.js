@@ -1,11 +1,17 @@
 import React, { PropTypes, Component } from 'react';
 
 class Article extends Component {
-    state = {
-        isOpen: false
-    };
+    constructor() {
+        super();
 
-    handleClick = () => {
+        this.state = {
+            isOpen: false
+        };
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
         this.setState({
             isOpen: !this.state.isOpen
         });
