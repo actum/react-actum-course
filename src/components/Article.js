@@ -23,6 +23,7 @@ class Article extends Component {
         return (
             <div>
                 <h1 onClick={this.handleClick}>{this.props.title}</h1>
+                <button onClick={() => this.props.removeArticle(this.props.id)} type="button">Remove</button>
                 { text }
             </div>
         );

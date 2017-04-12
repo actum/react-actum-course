@@ -19,10 +19,20 @@ class App extends Component {
             });
     }
 
+    removeArticle = (id) => {
+        const articles = this.state.articles.filter((article) => {
+            return article.id !== id
+        });
+
+        this.setState({
+            articles
+        });
+    };
+
     render() {
         return(
           <div>
-              <ArticleList articles={this.state.articles} />
+              <ArticleList removeArticle={this.removeArticle} articles={this.state.articles} />
           </div>
         );
     }

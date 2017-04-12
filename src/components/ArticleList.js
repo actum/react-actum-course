@@ -3,12 +3,12 @@ import Article from './Article';
 
 class ArticleList extends Component {
     render() {
-        const { articles } = this.props;
+        const { articles, removeArticle } = this.props;
 
         const articleList = articles.map((article) => {
             return (
                 <li key={article.id}>
-                    <Article title={article.title} text={article.text} />
+                    <Article removeArticle={removeArticle} id={article.id} title={article.title} text={article.text} />
                 </li>
             );
         });
