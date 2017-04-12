@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ArticleList from './ArticleList';
+import Form from './Form';
 import axios from 'axios';
 
 class App extends Component {
@@ -29,9 +30,23 @@ class App extends Component {
         });
     };
 
+    addArticle = (article) => {
+        // copy articles
+        const articles = [...this.state.articles];
+
+        // add new articles to articles array
+        articles.push(article);
+
+        // change state by articles array
+        this.setState({
+            articles
+        });
+    };
+
     render() {
         return(
           <div>
+              <Form addArticle={this.addArticle} />
               <ArticleList removeArticle={this.removeArticle} articles={this.state.articles} />
           </div>
         );
