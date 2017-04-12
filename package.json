@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --port 8001",
-    "build": "webpack"
+    "start": "concurrently \"npm run dev\" \"npm run api\"",
+    "dev": "webpack-dev-server --hot --inline --port 8001",
+    "api": "json-server --watch src/api/articles.json"
   },
   "repository": {
     "type": "git",
