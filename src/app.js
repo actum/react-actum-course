@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import ArticleList from './components/ArticleList';
+import App from './components/App';
 
 
 
 render(
-    <ArticleList />,
+    <App />,
     document.getElementById('container')
 );
