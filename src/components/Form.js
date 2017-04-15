@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends Component {
     state = {
         title: '',
         text: ''
+    };
+
+    static propTypes = {
+        addArticle: PropTypes.func.isRequired
     };
 
     handleChange = (field, value) => {
@@ -14,7 +19,9 @@ class Form extends Component {
 
     handleClick = () => {
         const id = +new Date;
-        this.props.addArticle({
+        const { addArticle } = this.props;
+
+        addArticle({
             ...this.state,
             id
         });
@@ -23,23 +30,26 @@ class Form extends Component {
             title: '',
             text: ''
         });
-
-        console.log(this.form);
-
     };
 
     render() {
         const { title, text } = this.state;
 
         return (
-            <form ref={(input) => this.form = input}>
+            <form>
                 <label htmlFor="title">Title</label>
-                <input onChange={(e) => this.handleChange('title', e.target.value)} type="text" id="title" value={title}/>
+                <input type="text"
+                       id="title"
+                       value={title}
+                       onChange={(e) => this.handleChange('title', e.target.value)} />
 
                 <br />
 
                 <label htmlFor="text">Text</label>
-                <input onChange={(e) => this.handleChange('text', e.target.value)} type="text" id="text" value={text}/>
+                <input type="text"
+                       id="text"
+                       value={text}
+                       onChange={(e) => this.handleChange('text', e.target.value)} />
 
                 <br />
 

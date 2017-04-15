@@ -34,7 +34,7 @@ class App extends Component {
         // copy articles
         const articles = [...this.state.articles];
 
-        // add new articles to articles array
+        // add new article to articles array
         articles.push(article);
 
         // change state by articles array
@@ -47,7 +47,8 @@ class App extends Component {
         return(
           <div>
               <Form addArticle={this.addArticle} />
-              <ArticleList removeArticle={this.removeArticle} articles={this.state.articles} />
+              <ArticleList removeArticle={this.removeArticle}
+                           articles={this.state.articles} />
           </div>
         );
     }

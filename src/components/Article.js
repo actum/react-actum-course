@@ -8,23 +8,31 @@ class Article extends Component {
 
     static propTypes = {
         title: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired
+        text: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        removeArticle: PropTypes.func
     };
 
     handleClick = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
+        this.setState((prevState) => {
+            return { isOpen: !prevState.isOpen };
         });
     };
 
     render() {
-        const text = this.state.isOpen ? <p>{this.props.text}</p> : null;
+        const { isOpen } = this.state;
+        const { title, id, text, removeArticle } = this.props;
+
+        const articleText = isOpen ? <p>{text}</p> : null;
+        const buttonRemoveArticle = removeArticle
+            ? <button onClick={() => removeArticle(id)} type="button">Remove</button>
+            : null;
 
         return (
             <div>
-                <h1 onClick={this.handleClick}>{this.props.title}</h1>
-                <button onClick={() => this.props.removeArticle(this.props.id)} type="button">Remove</button>
-                { text }
+                <h1 onClick={this.handleClick}>{title}</h1>
+                { buttonRemoveArticle }
+                { articleText }
             </div>
         );
     }
