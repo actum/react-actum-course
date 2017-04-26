@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ArticleList from './ArticleList';
 import Form from './Form';
 import axios from 'axios';
+import Main from './Main';
 
 class App extends Component {
     state = {
@@ -45,11 +46,11 @@ class App extends Component {
 
     render() {
         return(
-          <div>
+          <Main>
               <Form addArticle={this.addArticle} />
               <ArticleList removeArticle={this.removeArticle}
                            articles={this.state.articles} />
-          </div>
+          </Main>
         );
     }
 }
