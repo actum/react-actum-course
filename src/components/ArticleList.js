@@ -12,14 +12,15 @@ class ArticleList extends Component {
         const { articles, removeArticle } = this.props;
 
         const articleList = articles.map((article) => {
-            const { id, title, text } = article;
+            const { id, title, text, comments } = article;
 
             return (
                 <li key={article.id}>
                     <Article removeArticle={removeArticle}
                              id={id}
                              title={title}
-                             text={text} />
+                             text={text}
+                             comments={comments} />
                 </li>
             );
         });
