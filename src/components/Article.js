@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CommentList from './CommentList';
 import ToggledComponent from './hoc/ToggledComponent';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 class Article extends Component {
 
@@ -21,12 +22,15 @@ class Article extends Component {
             : null;
 
         return (
-            <div>
+            <CSSTransitionGroup
+                    transitionName="article"
+                    transitionEnterTimeout={5000}
+                    transitionLeaveTimeout={3000}>
                 <h1 onClick={handleToggle}>{title}</h1>
                 { buttonRemoveArticle }
                 { articleText }
                 <CommentList comments={comments} />
-            </div>
+            </CSSTransitionGroup>
         );
     }
 }

@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <title>React Actum Course</title>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <style>
+        .article-enter {
+            opacity: 0.01;
+        }
+
+        .article-enter.article-enter-active {
+            opacity: 1;
+            transition: opacity 5000ms ease-in;
+        }
+
+        .article-leave {
+            opacity: 1;
+        }
+
+        .article-leave.article-leave-active {
+            opacity: 0.01;
+            transition: opacity 3000ms ease-in;
+        }
+    </style>
 </head>
 <body>
     <div id="container"></div>
