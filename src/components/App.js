@@ -8,7 +8,7 @@ class App extends Component {
         articles: []
     };
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:3000/articles')
             .then((response) => {
                 this.setState({
