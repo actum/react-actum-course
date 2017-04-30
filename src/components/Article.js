@@ -24,8 +24,8 @@ class Article extends Component {
         return (
             <CSSTransitionGroup
                     transitionName="article"
-                    transitionEnterTimeout={5000}
-                    transitionLeaveTimeout={3000}>
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
                 <h1 onClick={handleToggle}>{title}</h1>
                 { buttonRemoveArticle }
                 { articleText }
