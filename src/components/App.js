@@ -3,10 +3,15 @@ import ArticleList from './ArticleList';
 import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import Main from './Main';
+import Filter from './Filter';
 
 class App extends Component {
     state = {
-        articles: []
+        articles: [],
+        date : {
+            startDate: '',
+            endDate: ''
+        }
     };
 
     componentDidMount() {
@@ -44,11 +49,26 @@ class App extends Component {
         });
     };
 
+    changeDate = (field, value) => {
+        this.setState((prevState) => {
+            return {
+                date: {
+                    ...prevState.date,
+                    [field]: value
+                }
+            }
+        });
+
+    };
+
     render() {
+        const { date } = this.state;
+
         return(
           <Main>
               <ValidatedForm addArticle={this.addArticle} />
-              <ArticleList removeArticle={this.removeArticle}
+              <Filter date={date} changeDate={this.changeDate} />
+              <ArticleList date={date} removeArticle={this.removeArticle}
                            articles={this.state.articles} />
           </Main>
         );

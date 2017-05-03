@@ -1,17 +1,42 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Article from './Article';
+import moment from 'moment';
 
 class ArticleList extends Component {
+    state = {
+        filters: []
+    };
+
     static propTypes = {
         articles: PropTypes.array.isRequired,
         removeArticle: PropTypes.func
     };
 
-    render() {
-        const { articles, removeArticle } = this.props;
+    componentWillReceiveProps(nextProps) {
+        const { date, articles } = nextProps;
+        const { startDate, endDate } = date;
 
-        const articleList = articles.map((article) => {
+        if (!startDate || !endDate) {
+            this.setState({
+                filters: articles
+            });
+        } else {
+            const filters = articles.filter((article) => {
+                return moment(article.date).isBetween(startDate, endDate);
+            });
+
+            this.setState({
+                filters
+            });
+        }
+    }
+
+    render() {
+        const { removeArticle } = this.props;
+        const { filters } = this.state;
+
+        const articleList = filters.map((article) => {
             const { id, title, text, comments } = article;
 
             return (

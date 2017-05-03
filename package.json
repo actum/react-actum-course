@@ -28,10 +28,14 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "css-loader": "^0.28.1",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.7",
     "react": "^15.4.2",
     "react-custom-validation": "^0.5.4",
+    "react-datepicker": "^0.46.0",
     "react-dom": "^15.4.2",
-    "react-transition-group": "^1.1.2"
+    "react-transition-group": "^1.1.2",
+    "style-loader": "^0.17.0"
   }
 }
