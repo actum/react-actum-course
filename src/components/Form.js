@@ -1,62 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import validationConfig from '../validationConfig';
+import { validated } from 'react-custom-validation';
 
 class Form extends Component {
-    state = {
-        title: '',
-        text: ''
-    };
+
 
     static propTypes = {
         addArticle: PropTypes.func.isRequired
     };
 
-    handleChange = (field, value) => {
-          this.setState({
-              [field]: value
-          });
-    };
-
-    handleClick = () => {
-        const id = +new Date;
-        const { addArticle } = this.props;
-
-        addArticle({
-            ...this.state,
-            id
-        });
-
-        this.setState({
-            title: '',
-            text: ''
-        });
-    };
+    componentWillReceiveProps(nextProps) {
+        const { $fieldEvent, title, text } = nextProps;
+        if (!title && !text) $fieldEvent('reset');
+    }
 
     render() {
-        const { title, text } = this.state;
+        const { title, text, onChange, onValid, $field, $validation, $submit, $fieldEvent } = this.props;
 
         return (
             <form>
                 <label htmlFor="title">Title</label>
-                <input type="text"
-                       id="title"
-                       value={title}
-                       onChange={(e) => this.handleChange('title', e.target.value)} />
+                {$validation.title.show && <span className="validation__message">{$validation.title.error.reason}</span>}
+                <input id="title" type="text" value={title}
+                       {...$field('title', (e) => onChange('title', e.target.value))}/>
 
                 <br />
 
                 <label htmlFor="text">Text</label>
-                <input type="text"
-                       id="text"
-                       value={text}
-                       onChange={(e) => this.handleChange('text', e.target.value)} />
+                {$validation.text.show && <span className="validation__message">{$validation.text.error.reason}</span>}
+                <input id="text" type="text" value={text}
+                       {...$field('text', (e) => onChange('text', e.target.value))}/>
 
                 <br />
 
-                <button onClick={this.handleClick} type="button">Add article</button>
+                <button
+                    onClick= {
+                        () => { $submit(onValid); }
+                    }
+                    type="button">Add article</button>
             </form>
         );
     }
 }
 
-export default Form;
+export default validated(validationConfig)(Form);
