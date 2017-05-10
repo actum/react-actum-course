@@ -4,6 +4,7 @@ import ValidatedForm from './ValidatedForm';
 import axios from 'axios';
 import Main from './Main';
 import Filter from './Filter';
+import Counter from './Counter';
 
 class App extends Component {
     state = {
@@ -66,6 +67,8 @@ class App extends Component {
 
         return(
           <Main>
+              <Counter/>
+              <br />
               <ValidatedForm addArticle={this.addArticle} />
               <Filter date={date} changeDate={this.changeDate} />
               <ArticleList date={date} removeArticle={this.removeArticle}
