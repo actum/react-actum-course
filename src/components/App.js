@@ -1,40 +1,24 @@
 import React, { Component } from 'react';
 import ArticleList from './ArticleList';
 import ValidatedForm from './ValidatedForm';
-import axios from 'axios';
 import Main from './Main';
 import Filter from './Filter';
 import Counter from './Counter';
+import defaultArticles from '../articles';
+import { initArticles, removeArticle } from '../AC/articles';
+import { changeFilterDate } from '../AC/filter';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 class App extends Component {
-    state = {
-        articles: [],
-        date : {
-            startDate: '',
-            endDate: ''
-        }
-    };
-
     componentDidMount() {
-        axios.get('http://localhost:3000/articles')
-            .then((response) => {
-                this.setState({
-                    articles: response.data
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        const { initArticles } = this.props;
+        initArticles(defaultArticles);
     }
 
     removeArticle = (id) => {
-        const articles = this.state.articles.filter((article) => {
-            return article.id !== id
-        });
-
-        this.setState({
-            articles
-        });
+        const { removeArticle } = this.props;
+        removeArticle(id);
     };
 
     addArticle = (article) => {
@@ -50,32 +34,41 @@ class App extends Component {
         });
     };
 
-    changeDate = (field, value) => {
-        this.setState((prevState) => {
-            return {
-                date: {
-                    ...prevState.date,
-                    [field]: value
-                }
-            }
-        });
-
-    };
-
     render() {
-        const { date } = this.state;
+        const { articles, filterDate, changeFilterDate } = this.props;
 
         return(
           <Main>
               <Counter/>
               <br />
               <ValidatedForm addArticle={this.addArticle} />
-              <Filter date={date} changeDate={this.changeDate} />
-              <ArticleList date={date} removeArticle={this.removeArticle}
-                           articles={this.state.articles} />
+              <Filter date={filterDate} changeDate={changeFilterDate} />
+              <ArticleList removeArticle={this.removeArticle}
+                           articles={articles} />
           </Main>
         );
     }
 }
 
-export default App;
+export default connect((state) => {
+    const { articles, filter } = state;
+    const { filterDate } = filter;
+    const { startDate, endDate } = filterDate;
+
+    let filteredArticles = articles;
+
+    if (startDate && endDate) {
+        filteredArticles = articles.filter((article) => {
+           return  moment(article.date).isBetween(startDate, endDate);
+        });
+    }
+
+    return {
+        articles: filteredArticles,
+        filterDate
+    };
+}, {
+    initArticles,
+    removeArticle,
+    changeFilterDate
+})(App);
