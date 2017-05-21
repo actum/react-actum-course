@@ -16,11 +16,6 @@ class App extends Component {
         initArticles(defaultArticles);
     }
 
-    removeArticle = (id) => {
-        const { removeArticle } = this.props;
-        removeArticle(id);
-    };
-
     addArticle = (article) => {
         // copy articles
         const articles = [...this.state.articles];
@@ -35,7 +30,7 @@ class App extends Component {
     };
 
     render() {
-        const { articles, filterDate, changeFilterDate } = this.props;
+        const { articles, filterDate, changeFilterDate, removeArticle } = this.props;
 
         return(
           <Main>
@@ -43,7 +38,7 @@ class App extends Component {
               <br />
               <ValidatedForm addArticle={this.addArticle} />
               <Filter date={filterDate} changeDate={changeFilterDate} />
-              <ArticleList removeArticle={this.removeArticle}
+              <ArticleList removeArticle={removeArticle}
                            articles={articles} />
           </Main>
         );
