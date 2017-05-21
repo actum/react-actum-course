@@ -1,4 +1,4 @@
-import { INIT_ARTICLES, REMOVE_ARTICLE } from '../constatns';
+import { INIT_ARTICLES, REMOVE_ARTICLE } from '../constants';
 
 export const initArticles = (articles) => {
     return {

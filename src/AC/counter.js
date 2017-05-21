@@ -1,4 +1,4 @@
-import { INCREMENT_BY_VALUE, INCREMENT_COUNTER } from '../constatns';
+import { INCREMENT_BY_VALUE, INCREMENT_COUNTER } from '../constants';
 
 export const increment = () => {
     return {
