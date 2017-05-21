@@ -1,4 +1,4 @@
-import { CHANGE_FILTER_DATE } from '../constatns';
+import { CHANGE_FILTER_DATE } from '../constants';
 
 export const changeFilterDate = (dateType, dateValue) => {
     return {
