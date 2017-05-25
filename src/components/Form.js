@@ -1,47 +1,69 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import validationConfig from '../validationConfig';
-import { validated } from 'react-custom-validation';
+import Form from './Form';
 
-class Form extends Component {
+class ValidatedForm extends Component {
+    state = {
+        title: '',
+        text: '',
+        comments: []
+    };
 
+    componentWillReceiveProps(nextProps) {
+        const { isValid } = nextProps.validation;
+        if (isValid) {
+            this.setState({
+                title: '',
+                text: ''
+            });
+        }
+    }
 
     static propTypes = {
         addArticle: PropTypes.func.isRequired
     };
 
-    componentWillReceiveProps(nextProps) {
-        const { $fieldEvent, title, text } = nextProps;
-        if (!title && !text) $fieldEvent('reset');
-    }
+    handleChange = (field, value) => {
+        this.setState({
+            [field]: value
+        });
+    };
+
+    handleClick = () => {
+        const { addArticle } = this.props;
+
+        addArticle({
+            ...this.state
+        });
+    };
+
+    getError = (type) => {
+        const { field, message } = this.props.validation;
+        if (type === field) return message;
+    };
 
     render() {
-        const { title, text, onChange, onValid, $field, $validation, $submit, $fieldEvent } = this.props;
+        const { title, text } = this.state;
 
-        return (
+       return (
+
             <form>
                 <label htmlFor="title">Title</label>
-                {$validation.title.show && <span className="validation__message">{$validation.title.error.reason}</span>}
-                <input id="title" type="text" value={title}
-                       {...$field('title', (e) => onChange('title', e.target.value))}/>
+                {this.getError('title')}
+                <input id="title" type="text" value={title} onChange={(e) => this.handleChange('title', e.target.value)} />
 
                 <br />
 
                 <label htmlFor="text">Text</label>
-                {$validation.text.show && <span className="validation__message">{$validation.text.error.reason}</span>}
-                <input id="text" type="text" value={text}
-                       {...$field('text', (e) => onChange('text', e.target.value))}/>
+                {this.getError('text')}
+                <input id="text" type="text" value={text} onChange={(e) => this.handleChange('text', e.target.value)} />
 
                 <br />
 
-                <button
-                    onClick= {
-                        () => { $submit(onValid); }
-                    }
-                    type="button">Add article</button>
+                <button onClick={this.handleClick} type="button">Add article</button>
             </form>
-        );
+        )
     }
 }
 
-export default validated(validationConfig)(Form);
+export default ValidatedForm;

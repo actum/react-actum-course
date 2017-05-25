@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ArticleList from './ArticleList';
-import ValidatedForm from './ValidatedForm';
+import Form from './Form';
 import Main from './Main';
 import Filter from './Filter';
 import Counter from './Counter';
-import { initArticles, removeArticle } from '../AC/articles';
+import { initArticles, removeArticle, addArticle } from '../AC/articles';
 import { changeFilterDate } from '../AC/filter';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -21,26 +21,17 @@ class App extends Component {
     };
 
     addArticle = (article) => {
-        // copy articles
-        const articles = [...this.state.articles];
-
-        // add new article to articles array
-        articles.push(article);
-
-        // change state by articles array
-        this.setState({
-            articles
-        });
+        this.props.addArticle(article);
     };
 
     render() {
-        const { articles, filterDate, changeFilterDate } = this.props;
+        const { articles, filterDate, changeFilterDate, validation } = this.props;
 
         return(
           <Main>
               <Counter/>
               <br />
-              <ValidatedForm addArticle={this.addArticle} />
+              <Form validation={validation} addArticle={this.addArticle} />
               <Filter date={filterDate} changeDate={changeFilterDate} />
               <ArticleList removeArticle={this.removeArticle}
                            articles={articles} />
@@ -50,7 +41,7 @@ class App extends Component {
 }
 
 export default connect((state) => {
-    const { articles, filter } = state;
+    const { articles, filter, validation } = state;
     const { filterDate } = filter;
     const { startDate, endDate } = filterDate;
 
@@ -64,10 +55,12 @@ export default connect((state) => {
 
     return {
         articles: filteredArticles,
-        filterDate
+        filterDate,
+        validation
     };
 }, {
     initArticles,
     removeArticle,
-    changeFilterDate
+    changeFilterDate,
+    addArticle
 })(App);
