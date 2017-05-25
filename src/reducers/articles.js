@@ -1,9 +1,9 @@
-import { INIT_ARTICLES, REMOVE_ARTICLE } from '../constatns';
+import { INIT_ARTICLES_SUCCESS, REMOVE_ARTICLE } from '../constatns';
 
 export default (state = [], action) => {
     const { type, payload} = action;
     switch (type) {
-        case INIT_ARTICLES:
+        case INIT_ARTICLES_SUCCESS:
             const { articles } = payload;
             return Array.prototype.concat(state, articles);
 

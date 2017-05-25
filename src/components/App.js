@@ -4,7 +4,6 @@ import ValidatedForm from './ValidatedForm';
 import Main from './Main';
 import Filter from './Filter';
 import Counter from './Counter';
-import defaultArticles from '../articles';
 import { initArticles, removeArticle } from '../AC/articles';
 import { changeFilterDate } from '../AC/filter';
 import { connect } from 'react-redux';
@@ -13,7 +12,7 @@ import moment from 'moment';
 class App extends Component {
     componentDidMount() {
         const { initArticles } = this.props;
-        initArticles(defaultArticles);
+        initArticles();
     }
 
     removeArticle = (id) => {
