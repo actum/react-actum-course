@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from 'redux';
 import reducer from '../reducers';
 import logger from 'redux-logger';
-import initArticles from '../middlewares/initArticles';
+import thunk from 'redux-thunk';
 
 const enhancer = applyMiddleware(
-    initArticles,
+    thunk,
     logger
 );
 
